@@ -72,14 +72,23 @@ Once you've completed the Metamask onboarding process, switch the network from t
 Metamask will automagically generate your first eth account on the Testnet for you.
 <br>
 
-<b>5. Build the Project and Launch an ICO Campaign! </b>
+<b>5. Run the Project and Launch an ICO Campaign! </b>
 
 In the terminal:<br>
 ```
 cd ethICO && npm run dev
 ```
 <br>
-Now go to http://localhost:7545 in the browser, and the dApp should be running! You can launch the ICO and purchase FundCoin (FDC) to contribute! Since this app is only for demonstrative purposes, the Withdrawal functionality is intentially left out.
+Now go to http://localhost:7545 in the browser, and the dApp should be running out of the box! You can launch the ICO and purchase FundCoin (FDC) to contribute! Since this app is only for demonstrative purposes, the Withdrawal functionality is intentially left out.
+<br>
+
+To iterate on this project, delete index.html and app.js in the build directory, make changes, save and run:<br>
+
+```
+npm run build
+```
+<br> 
+The build folder should be populated with browser-friendly versions of your updated index.html and app.js. 
 <br><br>
 
 <b>6. Download/Install Truffle's Ganache (Optional)</b>
