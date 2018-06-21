@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+  <title>ICO Launcher</title>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+
+
+  <!-- Scripts -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="./app/javascripts/bootstrap.min.js"></script>
+  <script src="./app/javascripts/web3.min.js"></script>
+  <script src="./app/javascripts/truffle-contract.js"></script>
+  <script src="app.js"></script>
+</head>
+<body>
+
+    <!-- Image and text -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" style="border-bottom: 1px solid #d3d3d3">
+    <div class="container">
+      <a class="navbar-brand" href="https://github.com/codeamt/ethICO">
+        ICO Launcher
+      </a>
+    </div>
+    </nav>
+
+
+    <main role="main" class="container" style="background: #343a40; padding-top: 10px; padding-bottom: 20px; border: 1px solid #d3d3d3;">
+
+    <div class="alert alert-info" role="alert"><b>Welcome to the ICO for FundCoin!</b> You are currently connected via the <b><span id="identifiedNet"></span> Network</b>.<br>View Project Source on <a href="https://github.com/codeamt/ethICO"><b>Github</b></a></div>
+
+    <div class="card-deck">
+        <div class="card" style="width: 20rem">
+                <div class="card-header">
+                    <b>Current Account Details</b>
+                </div>
+          <div class="card-body">
+            <p class="card-text">Your ETH Balance: <span id="youretherbalance0"></span></p>
+            <p class="card-text">Your Token Balance: <span id="yourtokenbalance0"></span> (<span id="tokenpercentage0"></span>%)</p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">Your Address: <a target="_blank" title="Check on Etherscan" id="youraddress0link" href=""><span id="youraddress0"></span></a></small>
+          </div>
+        </div>
+    </div>
+    <br>
+
+    <!-- Example single danger button -->
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Launch Campaign
+      </button>
+      <div class="dropdown-menu" style="width: 25rem" aria-labelledby="dLabel">
+        <div class="px-4 py-3">
+          <div class="form-group form-inline">
+            <label for="OpenFundraiseFormMinimumTarget">Minimum Target: </label>
+            <input type="text" class="form-control" id="OpenFundraiseFormMinimumTarget" placeholder="Min. Target (in Ether)" required>
+          </div>
+          <div class="form-group form-inline">
+            <label for="OpenFundraiseFormDeadline">Time Open: </label>
+            <input type="text" class="form-control" id="OpenFundraiseFormDeadline" placeholder="Time Open (In Minutes)" required>
+          </div>
+          <div class="form-group form-inline">
+            <label for="OpenFundraiseFormPriceOfToken">Price of Token (in Ether): </label>
+            <input type="text" class="form-control" id="OpenFundraiseFormPriceOfToken" placeholder="Price of Token (In Ether)" required>
+          </div>
+          <div class="form-group form-inline">
+            <label for="OpenFundraiseFormBeneficiary">Beneficiary Address: </label>
+            <input type="text" class="form-control" id="OpenFundraiseFormBeneficiary" placeholder="Beneficiary Address" required>
+          </div>
+          <div class="form-group form-inline">
+            <label for="OpenFundraiseFormTokenReward">Token Address: </label>
+            <input type="text" class="form-control" id="OpenFundraiseFormTokenReward" placeholder="Token Address" required>
+          </div>
+          <button class="btn btn-primary" onclick="App.launchFundraise()">Launch</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Example single danger button -->
+    <div class="btn-group">
+      <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Contribute to Fund
+      </button>
+      <div class="dropdown-menu" style="width: 25rem" aria-labelledby="dLabel">
+        <div class="px-4 py-3">
+          <div class="form-group form-inline">
+            <label for="ContributeDropdownFormAmount">Amount</label>
+            <input type="text" class="form-control" id="ContributeDropdownFormAmount" placeholder="Amount (in Ether)">
+          </div>
+          <button class="btn btn-primary" onclick="App.contributeToFundraiseApp()">Contribute</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Example single danger button -->
+    <div class="btn-group">
+      <button class="btn btn-info" onclick="App.checkFundraiseStatus()">
+        Check Campaign Status
+      </button>
+    </div>
+
+    <!-- Example single danger button -->
+    <div class="btn-group">
+      <button class="btn btn-warning" onclick="App.withdrawAmountsApp()">
+        Withdraw Your FDC
+      </button>
+    </div>
+
+    <br>
+    <br>
+        <div class="card-deck">
+          <div class="card">
+                <div class="card-header">
+                    <b>About the Token:</b>
+                </div>
+            <div class="card-body">
+              <p class="card-text">Name: <span id="tokenname"></span></p>
+              <p class="card-text">Symbol: <span id="tokensymbol"></span></p>
+              <p class="card-text">Decimals: <span id="tokendecimals"></span></p>
+              <p class="card-text">Supply: <span id="tokentotalsupply"></span></p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Token Address: <a target="_blank" title="Check on Etherscan" id="tokenaddresslink" href=""><span id="tokenaddress"></span></a></small>
+            </div>
+          </div>
+          <div class="card">
+                <div class="card-header">
+                    <b>About this ICO:</b>
+                </div>
+            <div class="card-body">
+              <p class="card-text">Started: <span id="hasfundraisestarted"></span></p>
+              <p class="card-text">Token Balance: <span id="fundraisetokenbalance"></span></p>
+              <p class="card-text">Ether Balance: <span id="fundraiseetherbalance"></span></p>
+              <p class="card-text">Target: <span id="fundraisetarget"></span></p>
+              <p class="card-text">Deadline: <span id="fundraisedeadline"></span></p>
+              <p class="card-text">Open: <span id="isfundraiseopen"></span></p>
+              <p class="card-text">Target Reached: <span id="isfundraisetargetreached"></span></p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Campaign Address: <a target="_blank" title="Check on Etherscan" id="fundraiseaddresslink" href=""><span id="fundraiseaddress"></span></a></small>
+            </div>
+          </div>
+          <div class="card">
+                <div class="card-header">
+                    <b>Fund Profile:</b>
+                </div>
+            <div class="card-body">
+              <p class="card-text">Fund Name: <span id="fundname"></span></p>
+              <p class="card-text">Fund Ether Balance: <span id="fundetherbalance"></span></p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Fund Address: <a target="_blank" title="Check on Etherscan" id="fundaddresslink" href=""><span id="fundaddress"></span></a></small>
+            </div>
+          </div>
+        </div>
+    <br>
+    </main>
+
+  <footer class="footer fixed-bottom" style="padding: 5px; background: #343a40; color: white; border-top: 1px solid #d3d3d3">
+    <div class="container">
+      <span class="text-muted">© 2018, AnnMargaret Tutu</span>
+    </div>
+  </footer>
+
+</body>
+<script src="https://cdn.rawgit.com/ethereum/web3.js/develop/dist/web3.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+
+</html>
